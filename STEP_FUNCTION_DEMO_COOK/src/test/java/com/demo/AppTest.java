@@ -43,7 +43,17 @@ public class AppTest
 		Assert.assertThat(cook.getResult(cookInput).getOrderNumber(), is(number));
 		Assert.assertThat(cook.getResult(cookInput).getWorkingHour(), is(number*10));
 	}
-	
+
+	@Test
+	public void testActivityCookResult() {
+		com.demo.activity.Cook cook = new com.demo.activity.Cook();
+		// mock CookInput result 
+		com.demo.activity.CookInput cookInput = Mockito.mock(com.demo.activity.CookInput.class);
+		when(cookInput.getOrderNumber()).thenReturn(number);
+
+		Assert.assertThat(cook.getResult(cookInput).getOrderNumber(), is(number));
+		Assert.assertThat(cook.getResult(cookInput).getWorkingHour(), is(number*10));
+	}
 	
 	@Test
 	public void testServeResult() {
