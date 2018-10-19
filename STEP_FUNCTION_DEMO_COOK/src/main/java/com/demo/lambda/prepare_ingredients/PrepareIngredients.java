@@ -9,13 +9,13 @@ public class PrepareIngredients implements RequestHandler<PrepareIngredientsInpu
 
     public PrepareIngredients() {}
 
-    public PrepareIngredientsOutput getResult() {
-    	return new PrepareIngredientsOutput("cilantro,lamb,wine,black pepper", 100);
+    public PrepareIngredientsOutput getResult(PrepareIngredientsInput event) {
+    	return new PrepareIngredientsOutput("cilantro,lamb,wine,black pepper", event.getNumber());
     }
 
 	public PrepareIngredientsOutput handleRequest(PrepareIngredientsInput event, Context context) {
       context.getLogger().log("Received event: " + event);
-      PrepareIngredientsOutput result = getResult();
+      PrepareIngredientsOutput result = getResult(event);
       return result;
 	}
     

@@ -10,6 +10,8 @@ import static org.hamcrest.CoreMatchers.*;
 import com.demo.lambda.cook.Cook;
 import com.demo.lambda.cook.CookInput;
 import com.demo.lambda.prepare_ingredients.PrepareIngredients;
+import com.demo.lambda.prepare_ingredients.PrepareIngredientsInput;
+import com.demo.lambda.prepare_ingredients.PrepareIngredientsOutput;
 /**
  * Unit test for simple App.
  */
@@ -20,8 +22,12 @@ public class AppTest
 	@Test
 	public void testPrepareIngredientResult() {
 		PrepareIngredients prepareIngredients = new PrepareIngredients();
-		Assert.assertThat(prepareIngredients.getResult().getIngredients(), is("cilantro,lamb,wine,black pepper"));
-		Assert.assertThat(prepareIngredients.getResult().getNumber(), is(number));
+		PrepareIngredientsInput prepareIngredientsInput = Mockito.mock(PrepareIngredientsInput.class);
+		when(prepareIngredientsInput.getNumber()).thenReturn(100);
+		
+		PrepareIngredientsOutput result = prepareIngredients.getResult(prepareIngredientsInput);
+		Assert.assertThat(result.getIngredients(), is("cilantro,lamb,wine,black pepper"));
+		Assert.assertThat(result.getNumber(), is(number));
 	}
 	
 	
