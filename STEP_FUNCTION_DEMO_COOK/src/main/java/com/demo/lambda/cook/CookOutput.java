@@ -1,4 +1,4 @@
-package com.demo.entity;
+package com.demo.lambda.cook;
 
 public class CookOutput {
 	int workingHour;

@@ -1,9 +1,7 @@
-package com.demo.lambda;
+package com.demo.lambda.cook;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.demo.entity.CookInput;
-import com.demo.entity.CookOutput;
 
 public class Cook implements RequestHandler<CookInput, CookOutput> {
 

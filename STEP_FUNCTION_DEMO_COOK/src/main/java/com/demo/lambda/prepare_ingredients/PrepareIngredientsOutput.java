@@ -1,4 +1,4 @@
-package com.demo.entity;
+package com.demo.lambda.prepare_ingredients;
 
 public class PrepareIngredientsOutput {
 	String ingredients;

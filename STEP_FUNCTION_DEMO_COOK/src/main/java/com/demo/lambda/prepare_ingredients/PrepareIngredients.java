@@ -1,9 +1,7 @@
-package com.demo.lambda;
+package com.demo.lambda.prepare_ingredients;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.demo.entity.PrepareIngredientsInput;
-import com.demo.entity.PrepareIngredientsOutput;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
