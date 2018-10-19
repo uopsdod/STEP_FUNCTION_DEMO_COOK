@@ -12,6 +12,8 @@ import com.demo.lambda.cook.CookInput;
 import com.demo.lambda.prepare_ingredients.PrepareIngredients;
 import com.demo.lambda.prepare_ingredients.PrepareIngredientsInput;
 import com.demo.lambda.prepare_ingredients.PrepareIngredientsOutput;
+import com.demo.lambda.serve.Serve;
+import com.demo.lambda.serve.ServeInput;
 /**
  * Unit test for simple App.
  */
@@ -39,5 +41,16 @@ public class AppTest
 		when(cookInput.getNumber()).thenReturn(number);
 
 		Assert.assertThat(cook.getResult(cookInput).getWorkingHour(), is(number*10));
-	}	
+	}
+	
+	
+	@Test
+	public void testServeResult() {
+		Serve serve = new Serve();
+		ServeInput serveInput = Mockito.mock(ServeInput.class);
+		when(serveInput.getNumber()).thenReturn(number);
+
+		Assert.assertThat(serve.getResult(serveInput).getResultMsg(), is(number + " meals are served"));
+	}		
+	
 }
