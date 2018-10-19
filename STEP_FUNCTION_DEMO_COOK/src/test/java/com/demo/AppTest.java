@@ -40,6 +40,7 @@ public class AppTest
 		CookInput cookInput = Mockito.mock(CookInput.class);
 		when(cookInput.getNumber()).thenReturn(number);
 
+		Assert.assertThat(cook.getResult(cookInput).getNumber(), is(number));
 		Assert.assertThat(cook.getResult(cookInput).getWorkingHour(), is(number*10));
 	}
 	
