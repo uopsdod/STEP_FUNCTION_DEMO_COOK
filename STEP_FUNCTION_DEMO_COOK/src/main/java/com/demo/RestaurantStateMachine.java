@@ -14,7 +14,7 @@ import com.amazonaws.services.stepfunctions.model.ListStateMachinesRequest;
  * Hello world!
  *
  */
-public class App 
+public class RestaurantStateMachine 
 {
     public static void main( String[] args )
     {
