@@ -8,6 +8,7 @@ import com.amazonaws.services.stepfunctions.AWSStepFunctionsClientBuilder;
 import com.amazonaws.services.stepfunctions.builder.ErrorCodes;
 import com.amazonaws.services.stepfunctions.builder.StateMachine;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineRequest;
+import com.amazonaws.services.stepfunctions.model.ListStateMachinesRequest;
 
 /**
  * Hello world!
@@ -23,7 +24,7 @@ public class App
     	/** get Lambda and activity workers' arn **/
     	String lambda_prepare_ingredients_agn = "arn:aws:lambda:us-east-1:602307824922:function:PrepareIngredients";
     	String lambda_cook_agn = "arn:aws:lambda:us-east-1:602307824922:function:Cook";
-    	// String lambda_serve_agn = "";
+    	String lambda_serve_agn = "arn:aws:lambda:us-east-1:602307824922:function:Serve";
     	
     	/** role arn **/
     	String role_agn = "arn:aws:iam::602307824922:role/STEP_FUNCTION_DEMO_COOK";
@@ -37,9 +38,12 @@ public class App
                         .transition(next("Cook")))
                 .state("Cook", taskState()
                         .resource(lambda_cook_agn)
+                        .transition(next("Serve")))
+                .state("Serve", taskState()
+                        .resource(lambda_serve_agn)
                         .transition(end()))
                 .build();
-        System.out.println(stateMachine.toPrettyJson());    	
+        System.out.println(stateMachine.toPrettyJson());
         
         /** actually create a state machine **/
         final AWSStepFunctions client = AWSStepFunctionsClientBuilder.standard().withCredentials(new ProfileCredentialsProvider(credential_profile)).build();

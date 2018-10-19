@@ -49,9 +49,10 @@ public class AppTest
 	public void testServeResult() {
 		Serve serve = new Serve();
 		ServeInput serveInput = Mockito.mock(ServeInput.class);
+		when(serveInput.getWorkingHour()).thenReturn(number*10);
 		when(serveInput.getNumber()).thenReturn(number);
 
-		Assert.assertThat(serve.getResult(serveInput).getResultMsg(), is(number + " meals are served"));
+		Assert.assertThat(serve.getResult(serveInput).getResultMsg(), is(number + " meals are served and it takes " + number*10));
 	}		
 	
 }
