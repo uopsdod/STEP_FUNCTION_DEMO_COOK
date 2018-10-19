@@ -2,12 +2,12 @@ package com.demo.lambda.cook;
 
 public class CookInput {
 	String ingredients;
-	int number;
+	int orderNumber;
 	public CookInput() {}
-	public CookInput(String ingredients, int number) {
+	public CookInput(String ingredients, int orderNumber) {
 		super();
 		this.ingredients = ingredients;
-		this.number = number;
+		this.orderNumber = orderNumber;
 	}
 	public String getIngredients() {
 		return ingredients;
@@ -15,11 +15,11 @@ public class CookInput {
 	public void setIngredients(String ingredients) {
 		this.ingredients = ingredients;
 	}
-	public int getNumber() {
-		return number;
+	public int getOrderNumber() {
+		return orderNumber;
 	}
-	public void setNumber(int number) {
-		this.number = number;
+	public void setOrderNumber(int orderNumber) {
+		this.orderNumber = orderNumber;
 	}
 	
 }

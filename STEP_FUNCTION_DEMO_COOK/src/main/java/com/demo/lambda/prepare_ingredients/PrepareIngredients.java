@@ -10,7 +10,7 @@ public class PrepareIngredients implements RequestHandler<PrepareIngredientsInpu
     public PrepareIngredients() {}
 
     public PrepareIngredientsOutput getResult(PrepareIngredientsInput event) {
-    	return new PrepareIngredientsOutput("cilantro,lamb,wine,black pepper", event.getNumber());
+    	return new PrepareIngredientsOutput("cilantro,lamb,wine,black pepper", event.getOrderNumber());
     }
 
 	public PrepareIngredientsOutput handleRequest(PrepareIngredientsInput event, Context context) {

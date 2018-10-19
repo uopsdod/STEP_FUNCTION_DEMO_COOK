@@ -2,11 +2,11 @@ package com.demo.lambda.prepare_ingredients;
 
 public class PrepareIngredientsOutput {
 	String ingredients;
-	int number;
-	public PrepareIngredientsOutput(String ingredients, int number) {
+	int orderNumber;
+	public PrepareIngredientsOutput(String ingredients, int orderNumber) {
 		super();
 		this.ingredients = ingredients;
-		this.number = number;
+		this.orderNumber = orderNumber;
 	}
 	public String getIngredients() {
 		return ingredients;
@@ -14,11 +14,11 @@ public class PrepareIngredientsOutput {
 	public void setIngredients(String ingredients) {
 		this.ingredients = ingredients;
 	}
-	public int getNumber() {
-		return number;
+	public int getOrderNumber() {
+		return orderNumber;
 	}
-	public void setNumber(int number) {
-		this.number = number;
+	public void setOrderNumber(int orderNumber) {
+		this.orderNumber = orderNumber;
 	}
 	
 }

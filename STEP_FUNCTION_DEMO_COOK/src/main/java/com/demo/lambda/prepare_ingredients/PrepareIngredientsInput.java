@@ -1,21 +1,21 @@
 package com.demo.lambda.prepare_ingredients;
 
 public class PrepareIngredientsInput {
-	int number;
+	int orderNumber;
 	
 	public PrepareIngredientsInput() {}
 
-	public PrepareIngredientsInput(int number) {
+	public PrepareIngredientsInput(int orderNumber) {
 		super();
-		this.number = number;
+		this.orderNumber = orderNumber;
 	}
 
-	public int getNumber() {
-		return number;
+	public int getOrderNumber() {
+		return orderNumber;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setOrderNumber(int orderNumber) {
+		this.orderNumber = orderNumber;
 	}
 	
 }

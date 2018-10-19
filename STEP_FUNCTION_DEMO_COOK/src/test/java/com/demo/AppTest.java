@@ -25,11 +25,11 @@ public class AppTest
 	public void testPrepareIngredientResult() {
 		PrepareIngredients prepareIngredients = new PrepareIngredients();
 		PrepareIngredientsInput prepareIngredientsInput = Mockito.mock(PrepareIngredientsInput.class);
-		when(prepareIngredientsInput.getNumber()).thenReturn(100);
+		when(prepareIngredientsInput.getOrderNumber()).thenReturn(100);
 		
 		PrepareIngredientsOutput result = prepareIngredients.getResult(prepareIngredientsInput);
 		Assert.assertThat(result.getIngredients(), is("cilantro,lamb,wine,black pepper"));
-		Assert.assertThat(result.getNumber(), is(number));
+		Assert.assertThat(result.getOrderNumber(), is(number));
 	}
 	
 	
@@ -38,9 +38,9 @@ public class AppTest
 		Cook cook = new Cook();
 		// mock CookInput result 
 		CookInput cookInput = Mockito.mock(CookInput.class);
-		when(cookInput.getNumber()).thenReturn(number);
+		when(cookInput.getOrderNumber()).thenReturn(number);
 
-		Assert.assertThat(cook.getResult(cookInput).getNumber(), is(number));
+		Assert.assertThat(cook.getResult(cookInput).getOrderNumber(), is(number));
 		Assert.assertThat(cook.getResult(cookInput).getWorkingHour(), is(number*10));
 	}
 	
@@ -50,7 +50,7 @@ public class AppTest
 		Serve serve = new Serve();
 		ServeInput serveInput = Mockito.mock(ServeInput.class);
 		when(serveInput.getWorkingHour()).thenReturn(number*10);
-		when(serveInput.getNumber()).thenReturn(number);
+		when(serveInput.getOrderNumber()).thenReturn(number);
 
 		Assert.assertThat(serve.getResult(serveInput).getResultMsg(), is(number + " meals are served and it takes " + number*10));
 	}		

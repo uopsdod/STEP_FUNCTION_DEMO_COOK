@@ -2,14 +2,14 @@ package com.demo.lambda.serve;
 
 public class ServeInput {
 	int workingHour;
-	int number;
+	int orderNumber;
 	
 	public ServeInput() {}
 
-	public ServeInput(int workingHour, int number) {
+	public ServeInput(int workingHour, int orderNumber) {
 		super();
 		this.workingHour = workingHour;
-		this.number = number;
+		this.orderNumber = orderNumber;
 	}
 
 	public int getWorkingHour() {
@@ -20,12 +20,12 @@ public class ServeInput {
 		this.workingHour = workingHour;
 	}
 
-	public int getNumber() {
-		return number;
+	public int getOrderNumber() {
+		return orderNumber;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setOrderNumber(int number) {
+		this.orderNumber = number;
 	}
 	
 }

@@ -8,7 +8,7 @@ public class Serve implements RequestHandler<ServeInput, ServeOutput> {
     public Serve() {}
 
     public ServeOutput getResult(ServeInput event) {
-    	return new ServeOutput(event.getWorkingHour(), event.getNumber());
+    	return new ServeOutput(event.getWorkingHour(), event.getOrderNumber());
     }
 
 	public ServeOutput handleRequest(ServeInput event, Context context) {
@@ -19,7 +19,7 @@ public class Serve implements RequestHandler<ServeInput, ServeOutput> {
 }
 /**
  * test input:
- * {"workingHour":1000,"number":100}
+ * {"workingHour":1000,"orderNumber":100}
  * expected output:
  * {"resultMsg":"100 meals are served and it takes 1000"}
  */
