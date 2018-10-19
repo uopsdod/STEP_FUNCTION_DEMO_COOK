@@ -52,7 +52,7 @@ public class AppTest
 		when(serveInput.getWorkingHour()).thenReturn(number*10);
 		when(serveInput.getOrderNumber()).thenReturn(number);
 
-		Assert.assertThat(serve.getResult(serveInput).getResultMsg(), is(number + " meals are served and it takes " + number*10));
+		Assert.assertThat(serve.getResult(serveInput).getResultMsg(), is(number + " meals are served and it takes " + number*10 + " hours"));
 	}		
 	
 }

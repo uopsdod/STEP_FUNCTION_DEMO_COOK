@@ -10,7 +10,7 @@ public class ServeOutput {
 	}
 	
 	public String getResultMsg() {
-		return this.number + " meals are served and it takes " + this.workingHour;
+		return this.number + " meals are served and it takes " + this.workingHour + " hours";
 	}
 	
 }
