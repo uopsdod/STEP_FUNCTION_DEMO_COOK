@@ -9,7 +9,7 @@ public class PrepareIngredients implements RequestHandler<PrepareIngredientsInpu
 
     public PrepareIngredients() {}
 
-    private PrepareIngredientsOutput getResult() {
+    public PrepareIngredientsOutput getResult() {
     	return new PrepareIngredientsOutput("cilantro,lamb,wine,black pepper", 100);
     }
 
