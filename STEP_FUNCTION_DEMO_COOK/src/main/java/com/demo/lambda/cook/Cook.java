@@ -9,7 +9,7 @@ public class Cook implements RequestHandler<CookInput, CookOutput> {
 
     public CookOutput getResult(CookInput cookInput) {
     	int workingHourInSec = cookInput.getNumber() * 10;
-    	return new CookOutput(workingHourInSec);
+    	return new CookOutput(workingHourInSec, cookInput.getNumber());
     }
 
 	public CookOutput handleRequest(CookInput event, Context context) {
