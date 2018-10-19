@@ -2,6 +2,8 @@ package com.demo.lambda.prepare_ingredients;
 
 public class PrepareIngredientsInput {
 	int number;
+	
+	public PrepareIngredientsInput() {}
 
 	public PrepareIngredientsInput(int number) {
 		super();
