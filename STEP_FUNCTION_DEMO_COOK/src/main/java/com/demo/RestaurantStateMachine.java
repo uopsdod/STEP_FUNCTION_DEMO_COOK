@@ -8,6 +8,7 @@ import com.amazonaws.services.stepfunctions.AWSStepFunctionsClientBuilder;
 import com.amazonaws.services.stepfunctions.builder.ErrorCodes;
 import com.amazonaws.services.stepfunctions.builder.StateMachine;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineRequest;
+import com.amazonaws.services.stepfunctions.model.CreateStateMachineResult;
 import com.amazonaws.services.stepfunctions.model.ListStateMachinesRequest;
 
 /**
@@ -20,7 +21,10 @@ public class RestaurantStateMachine
     {
     	/** get aws credential profile **/
     	String credential_profile = "stsai";
-    	
+ 
+    	/** actually create a state machine **/
+        final AWSStepFunctions client = AWSStepFunctionsClientBuilder.standard().withCredentials(new ProfileCredentialsProvider(credential_profile)).build();
+     	
     	/** get Lambda and activity workers' arn **/
     	String lambda_prepare_ingredients_agn = "arn:aws:lambda:us-east-1:602307824922:function:PrepareIngredients";
     	String lambda_cook_agn = "arn:aws:lambda:us-east-1:602307824922:function:Cook";
@@ -45,12 +49,10 @@ public class RestaurantStateMachine
                 .build();
         System.out.println(stateMachine.toPrettyJson());
         
-        /** actually create a state machine **/
-        final AWSStepFunctions client = AWSStepFunctionsClientBuilder.standard().withCredentials(new ProfileCredentialsProvider(credential_profile)).build();
-        client.createStateMachine(new CreateStateMachineRequest()
+        CreateStateMachineResult createStateMachine = client.createStateMachine(new CreateStateMachineRequest()
                                                   .withName("RestaurantStateMachine")
                                                   .withRoleArn(role_agn)
                                                   .withDefinition(stateMachine));
-        
+        System.out.println(createStateMachine.getStateMachineArn());
     }
 }
