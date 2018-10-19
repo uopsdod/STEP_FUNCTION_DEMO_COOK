@@ -1,16 +1,16 @@
 package com.demo.lambda.serve;
 
 public class ServeOutput {
-	int number;
+	int orderNumber;
 	int workingHour;
-	public ServeOutput(int workingHour, int number) {
+	public ServeOutput(int workingHour, int orderNumber) {
 		super();
 		this.workingHour = workingHour;
-		this.number = number;
+		this.orderNumber = orderNumber;
 	}
 	
 	public String getResultMsg() {
-		return this.number + " meals are served and it takes " + this.workingHour + " hours";
+		return this.orderNumber + " meals are served and it takes " + this.workingHour + " hours";
 	}
 	
 }
