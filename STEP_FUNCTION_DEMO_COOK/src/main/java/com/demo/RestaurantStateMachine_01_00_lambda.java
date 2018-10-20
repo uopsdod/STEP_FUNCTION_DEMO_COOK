@@ -17,6 +17,8 @@ import com.amazonaws.services.stepfunctions.model.ListStateMachinesRequest;
  */
 public class RestaurantStateMachine_01_00_lambda 
 {
+	static String stateMachineName = "RestaurantStateMachine_lambda";
+	
     public static void main( String[] args )
     {
     	/** get aws credential profile **/
@@ -50,7 +52,7 @@ public class RestaurantStateMachine_01_00_lambda
         System.out.println(stateMachine.toPrettyJson());
         
         CreateStateMachineResult createStateMachine = client.createStateMachine(new CreateStateMachineRequest()
-                                                  .withName("RestaurantStateMachine")
+                                                  .withName(stateMachineName)
                                                   .withRoleArn(role_agn)
                                                   .withDefinition(stateMachine));
         System.out.println(createStateMachine.getStateMachineArn());
