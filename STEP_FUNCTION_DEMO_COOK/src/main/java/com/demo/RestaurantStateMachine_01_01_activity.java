@@ -5,7 +5,7 @@ import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.n
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.stateMachine;
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.taskState;
 
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.stepfunctions.AWSStepFunctions;
 import com.amazonaws.services.stepfunctions.AWSStepFunctionsClientBuilder;
 import com.amazonaws.services.stepfunctions.builder.StateMachine;
@@ -24,11 +24,8 @@ public class RestaurantStateMachine_01_01_activity
 	
     public static void main( String[] args )
     {
-    	/** get aws credential profile **/
-    	String credential_profile = "stsai";
-
     	/** get an AWS Setp function client **/
-    	final AWSStepFunctions client = AWSStepFunctionsClientBuilder.standard().withCredentials(new ProfileCredentialsProvider(credential_profile)).build();
+    	final AWSStepFunctions client = AWSStepFunctionsClientBuilder.standard().withCredentials(DefaultAWSCredentialsProviderChain.getInstance()).build();
     	
     	/** get Lambda and activity workers' arn **/
     	String lambda_prepare_ingredients_agn = "arn:aws:lambda:us-east-1:602307824922:function:PrepareIngredients";

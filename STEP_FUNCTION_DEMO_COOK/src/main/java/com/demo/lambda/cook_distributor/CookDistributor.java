@@ -60,11 +60,7 @@ public class CookDistributor implements RequestHandler<CookDistributorInput, Coo
 	public List<Future<InvokeResult>> distirbute(String ingredients, int orderNumber, List<Order> orders) {
 		Gson gson = new Gson();
 		
-		/** get aws credential profile **/
-//    	String credential_profile = "stsai";
- 
     	/** actually create a state machine **/
-		// TODO: consider set timeout longer 
         AWSLambdaAsync lambdaAsyncClient = AWSLambdaAsyncClient.asyncBuilder().withCredentials(DefaultAWSCredentialsProviderChain.getInstance()).build();
 		
     	/** get Lambda arn **/

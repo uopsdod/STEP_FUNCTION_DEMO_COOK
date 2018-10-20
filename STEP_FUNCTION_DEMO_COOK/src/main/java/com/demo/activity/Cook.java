@@ -1,7 +1,7 @@
 package com.demo.activity;
 
 import com.amazonaws.ClientConfiguration;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.stepfunctions.AWSStepFunctions;
 import com.amazonaws.services.stepfunctions.AWSStepFunctionsClientBuilder;
 import com.amazonaws.services.stepfunctions.model.GetActivityTaskRequest;
@@ -18,12 +18,9 @@ public class Cook {
 	public Cook() {
 		int timeout = 5000;
 		
-		/** get aws credential profile **/
-    	String credential_profile = "stsai";
-
 		/** get an AWS Setp function client **/
     	ClientConfiguration withRequestTimeout = new ClientConfiguration().withClientExecutionTimeout(timeout);
-    	this.client = AWSStepFunctionsClientBuilder.standard().withCredentials(new ProfileCredentialsProvider(credential_profile)).withClientConfiguration(withRequestTimeout).build();
+    	this.client = AWSStepFunctionsClientBuilder.standard().withCredentials(DefaultAWSCredentialsProviderChain.getInstance()).withClientConfiguration(withRequestTimeout).build();
 		
     	/** get activity arn **/
     	this.activity_cook_agn = "arn:aws:states:us-east-1:602307824922:activity:Cook";		
