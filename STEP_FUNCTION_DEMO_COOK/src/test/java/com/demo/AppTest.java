@@ -61,7 +61,7 @@ public class AppTest
 		when(cookInput.getOrders()).thenReturn(orders);
 
 		Assert.assertThat(cook.getResult(cookInput).getOrderNumber(), is(number));
-		Assert.assertThat(cook.getResult(cookInput).getWorkingHour(), is(number*5));
+		Assert.assertThat(cook.getResult(cookInput).getWorkingSeconds(), is(number*5));
 	}
 
 	@Test
@@ -72,17 +72,17 @@ public class AppTest
 		when(cookInput.getOrderNumber()).thenReturn(number);
 
 		Assert.assertThat(cook.getResult(cookInput).getOrderNumber(), is(number));
-		Assert.assertThat(cook.getResult(cookInput).getWorkingHour(), is(number*10));
+		Assert.assertThat(cook.getResult(cookInput).getWorkingSeconds(), is(number*10));
 	}
 	
 	@Test
 	public void testServeResult() {
 		Serve serve = new Serve();
 		ServeInput serveInput = Mockito.mock(ServeInput.class);
-		when(serveInput.getWorkingHour()).thenReturn(number*10);
+		when(serveInput.getWorkingSeconds()).thenReturn(number*10);
 		when(serveInput.getOrderNumber()).thenReturn(number);
 
-		Assert.assertThat(serve.getResult(serveInput).getResultMsg(), is(number + " meals are served and it takes " + number*10 + " hours"));
+		Assert.assertThat(serve.getResult(serveInput).getResultMsg(), is(number + " meals are served and it takes " + number*10 + " seconds"));
 	}		
 	
 	@Test
@@ -95,7 +95,7 @@ public class AppTest
 		when(internCookInput.getOrderNumber()).thenReturn(number);
 
 		Assert.assertThat(internCook.getResult(internCookInput).getOrderNumber(), is(number));
-		Assert.assertThat(internCook.getResult(internCookInput).getWorkingHour(), is(number*10));
+		Assert.assertThat(internCook.getResult(internCookInput).getWorkingSeconds(), is(number*10));
 	}	
 	
 	@Test(expected = RuntimeException.class)

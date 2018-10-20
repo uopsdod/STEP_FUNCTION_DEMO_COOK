@@ -1,21 +1,21 @@
 package com.demo.lambda.cook_distributor;
 
 public class CookDistributorOutput {
-	int workingHour;
+	int workingSeconds;
 	int orderNumber;
 
-	public CookDistributorOutput(int workingHour, int orderNumber) {
+	public CookDistributorOutput(int workingSeconds, int orderNumber) {
 		super();
-		this.workingHour = workingHour;
+		this.workingSeconds = workingSeconds;
 		this.orderNumber = orderNumber;
 	}
 
-	public int getWorkingHour() {
-		return workingHour;
+	public int getWorkingSeconds() {
+		return workingSeconds;
 	}
 
-	public void setWorkingHour(int workingHour) {
-		this.workingHour = workingHour;
+	public void setWorkingSeconds(int workingSeconds) {
+		this.workingSeconds = workingSeconds;
 	}
 
 	public int getOrderNumber() {

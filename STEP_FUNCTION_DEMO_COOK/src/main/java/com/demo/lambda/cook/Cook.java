@@ -39,7 +39,7 @@ public class Cook implements RequestHandler<CookInput, CookOutput> {
 {"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":1,"orders":[{"orderId":101}],"ordersSize":1}
  * expected output:
 {
-  "workingHour": 1000,
+  "workingSeconds": 1000,
   "orderNumber": 100
 }
 */

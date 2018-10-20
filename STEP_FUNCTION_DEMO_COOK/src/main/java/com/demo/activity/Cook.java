@@ -62,7 +62,7 @@ public class Cook {
 	}
 	
     public CookOutput getResult(com.demo.activity.CookInput cookInput) {
-    	int workingHourInSec = cookInput.getOrderNumber() * 10;
-    	return new CookOutput(workingHourInSec, cookInput.getOrderNumber());
+    	int workingSeconds = cookInput.getOrderNumber() * 10;
+    	return new CookOutput(workingSeconds, cookInput.getOrderNumber());
     }
 }

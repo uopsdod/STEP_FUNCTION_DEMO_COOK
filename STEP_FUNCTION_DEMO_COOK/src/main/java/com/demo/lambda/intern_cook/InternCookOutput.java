@@ -1,21 +1,21 @@
 package com.demo.lambda.intern_cook;
 
 public class InternCookOutput {
-	int workingHour;
+	int workingSeconds;
 	int orderNumber;
 
-	public InternCookOutput(int workingHour, int orderNumber) {
+	public InternCookOutput(int workingSeconds, int orderNumber) {
 		super();
-		this.workingHour = workingHour;
+		this.workingSeconds = workingSeconds;
 		this.orderNumber = orderNumber;
 	}
 
-	public int getWorkingHour() {
-		return workingHour;
+	public int getWorkingSeconds() {
+		return workingSeconds;
 	}
 
-	public void setWorkingHour(int workingHour) {
-		this.workingHour = workingHour;
+	public void setWorkingSeconds(int workingSeconds) {
+		this.workingSeconds = workingSeconds;
 	}
 
 	public int getOrderNumber() {

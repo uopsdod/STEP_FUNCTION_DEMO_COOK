@@ -1,23 +1,23 @@
 package com.demo.lambda.serve;
 
 public class ServeInput {
-	int workingHour;
+	int workingSeconds;
 	int orderNumber;
 	
 	public ServeInput() {}
 
-	public ServeInput(int workingHour, int orderNumber) {
+	public ServeInput(int workingSeconds, int orderNumber) {
 		super();
-		this.workingHour = workingHour;
+		this.workingSeconds = workingSeconds;
 		this.orderNumber = orderNumber;
 	}
 
-	public int getWorkingHour() {
-		return workingHour;
+	public int getWorkingSeconds() {
+		return workingSeconds;
 	}
 
-	public void setWorkingHour(int workingHour) {
-		this.workingHour = workingHour;
+	public void setWorkingSeconds(int workingSeconds) {
+		this.workingSeconds = workingSeconds;
 	}
 
 	public int getOrderNumber() {

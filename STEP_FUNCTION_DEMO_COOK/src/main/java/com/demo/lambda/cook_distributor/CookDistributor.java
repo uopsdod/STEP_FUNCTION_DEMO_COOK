@@ -116,7 +116,7 @@ public class CookDistributor implements RequestHandler<CookDistributorInput, Coo
 {"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":100}
  * expected output:
 {
-  "workingHour": 1000,
+  "workingSeconds": 1000,
   "orderNumber": 100
 }
 */

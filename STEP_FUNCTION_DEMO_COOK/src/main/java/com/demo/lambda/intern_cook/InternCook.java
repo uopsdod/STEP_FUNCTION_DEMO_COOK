@@ -16,8 +16,8 @@ public class InternCook implements RequestHandler<InternCookInput, InternCookOut
     		throw new RuntimeException("InternCook screws up this time");
     	}
     	
-    	int workingHourInSec = cookInput.getOrderNumber() * 10;
-    	return new InternCookOutput(workingHourInSec, cookInput.getOrderNumber());
+    	int workingSeconds = cookInput.getOrderNumber() * 10;
+    	return new InternCookOutput(workingSeconds, cookInput.getOrderNumber());
     }
 
 	public InternCookOutput handleRequest(InternCookInput event, Context context) {
@@ -40,7 +40,7 @@ public class InternCook implements RequestHandler<InternCookInput, InternCookOut
 {"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":100}
  * expected output:
 {
-  "workingHour": 1000,
+  "workingSeconds": 1000,
   "orderNumber": 100
 }
 */
