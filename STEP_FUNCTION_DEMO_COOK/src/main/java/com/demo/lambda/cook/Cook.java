@@ -23,7 +23,7 @@ public class Cook implements RequestHandler<CookInput, CookOutput> {
     	// calculate how long we take here
 		long endTime = System.nanoTime();
 		int durationSeconds = (int) TimeUnit.NANOSECONDS.toSeconds(endTime - startTime);
-		System.out.println("CookDistributor durationSeconds: " + durationSeconds);
+		System.out.println("Cook durationSeconds: " + durationSeconds);
     	return new CookOutput(durationSeconds, orders.size());
     }
 
