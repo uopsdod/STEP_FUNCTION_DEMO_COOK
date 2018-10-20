@@ -1,13 +1,24 @@
 package com.demo.lambda.cook_distributor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CookDistributorCookOutput {
 	String ingredients;
 	int orderNumber;
-	public CookDistributorCookOutput() {}
-	public CookDistributorCookOutput(String ingredients, int orderNumber) {
+	List<Order> orders;
+	public CookDistributorCookOutput(String ingredients, int orderNumber, Order order) {
 		super();
 		this.ingredients = ingredients;
 		this.orderNumber = orderNumber;
+		this.orders = new ArrayList<>();
+		this.orders.add(order);
+	}
+	public CookDistributorCookOutput(String ingredients, int orderNumber, List<Order> orders) {
+		super();
+		this.ingredients = ingredients;
+		this.orderNumber = orderNumber;
+		this.orders = orders;
 	}
 	public String getIngredients() {
 		return ingredients;
@@ -20,6 +31,12 @@ public class CookDistributorCookOutput {
 	}
 	public void setOrderNumber(int orderNumber) {
 		this.orderNumber = orderNumber;
+	}
+	public List<Order> getOrders() {
+		return orders;
+	}
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 	
 }

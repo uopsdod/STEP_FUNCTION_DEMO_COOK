@@ -31,7 +31,7 @@ public class CookDistributor implements RequestHandler<CookDistributorInput, Coo
     	// invoke lambda asynchronously and gather their result after we invoke them all
     	// advantage: here, we take advantage of the auto-scaling feature of lambda to have a great performance 
     	List<Order> orders = cookInput.getOrders();
-    	List<Future<InvokeResult>> futures = distirbute(orders);
+    	List<Future<InvokeResult>> futures = distirbute(orders, cookInput);
 		
 		// wait for the lambdas to get back (TODO: it might be good to set some timeout here)
 //    	waitForProcessing(futures);
@@ -62,7 +62,7 @@ public class CookDistributor implements RequestHandler<CookDistributorInput, Coo
 //		}
 //	}
 
-	public List<Future<InvokeResult>> distirbute(List<Order> orders) {
+	public List<Future<InvokeResult>> distirbute(List<Order> orders, CookDistributorInput cookInput) {
 		Gson gson = new Gson();
 		
 		/** get aws credential profile **/
@@ -78,9 +78,10 @@ public class CookDistributor implements RequestHandler<CookDistributorInput, Coo
         List<Future<InvokeResult>> futures = new ArrayList<>();
     	System.out.println("CookDistributor orders size: " + orders.size());
 		for (Order order : orders) {
-			InvokeRequest invoke = new InvokeRequest();
-	        invoke.withFunctionName(lambda_cook_agn)
-	                .withPayload(gson.toJson(new CookDistributorCookOutput("some ingredients from CookDistributor",1))); // TODO - change CookInput (let's do it)
+	        CookDistributorCookOutput cookDistributorCookOutput = new CookDistributorCookOutput(cookInput.getIngredients(),cookInput.getOrderNumber(),order);
+	        InvokeRequest invoke = new InvokeRequest();
+			invoke.withFunctionName(lambda_cook_agn)
+	                .withPayload(gson.toJson(cookDistributorCookOutput)); // TODO - change CookInput (let's do it)
 	        Future<InvokeResult> future = lambdaAsyncClient.invokeAsync(invoke);
 	        futures.add(future);
 		}
@@ -115,6 +116,7 @@ public class CookDistributor implements RequestHandler<CookDistributorInput, Coo
  * test input:
 {"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":100}
 {"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":3,"orders":[{"orderId":1},{"orderId":2},{"orderId":3}],"ordersSize":3}
+{"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":5,"orders":[{"orderId":101},{"orderId":102},{"orderId":103},{"orderId":104},{"orderId":105}],"ordersSize":5}
  * expected output:
-{"workingSeconds":12,"orderNumber":3}
+{"workingSeconds":6,"orderNumber":3}
 */

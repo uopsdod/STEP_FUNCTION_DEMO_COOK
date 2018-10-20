@@ -127,13 +127,13 @@ public class AppTest
 	
 	@Test
 	public void testCookDistributorResult() {
-		CookDistributorInput cookDistributorInput = Mockito.mock(CookDistributorInput.class);
-		List<com.demo.lambda.cook_distributor.Order> orders = new ArrayList<>();
-		/** simulate we got order details for each one **/
-		for (int i = 1; i <= number; i++) {
-			orders.add(new com.demo.lambda.cook_distributor.Order());
-		}
-		when(cookDistributorInput.getOrders()).thenReturn(orders);
+//		CookDistributorInput cookDistributorInput = Mockito.mock(CookDistributorInput.class);
+//		List<com.demo.lambda.cook_distributor.Order> orders = new ArrayList<>();
+//		/** simulate we got order details for each one **/
+//		for (int i = 1; i <= number; i++) {
+//			orders.add(new com.demo.lambda.cook_distributor.Order());
+//		}
+//		when(cookDistributorInput.getOrders()).thenReturn(orders);
 		
 		// it doesn't test anything now 
 		/** partial mock **/ 
