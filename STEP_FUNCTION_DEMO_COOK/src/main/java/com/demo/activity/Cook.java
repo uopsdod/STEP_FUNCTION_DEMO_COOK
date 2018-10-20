@@ -1,5 +1,8 @@
 package com.demo.activity;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.stepfunctions.AWSStepFunctions;
@@ -16,7 +19,7 @@ public class Cook {
 	AWSStepFunctions client;
 	
 	public Cook() {
-		int timeout = 5000;
+		int timeout = 10000;
 		
 		/** get an AWS Setp function client **/
     	ClientConfiguration withRequestTimeout = new ClientConfiguration().withClientExecutionTimeout(timeout);
@@ -35,7 +38,7 @@ public class Cook {
     		try {
     			cook.execute();
     		}catch(Exception e) {
-    			System.out.println("simplified error msg: " + e.getMessage());
+    			System.out.println("work not found or failed: " + e.getMessage());
     			// e.printStackTrace();
     		}
     	}
@@ -59,7 +62,19 @@ public class Cook {
 	}
 	
     public CookOutput getResult(com.demo.activity.CookInput cookInput) {
-    	int workingSeconds = cookInput.getOrderNumber() * 10;
-    	return new CookOutput(workingSeconds, cookInput.getOrderNumber());
+    	long startTime = System.nanoTime();
+    	List<Order> orders = cookInput.getOrders();
+    	for (Order order : orders) {
+			try {
+				TimeUnit.SECONDS.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+    	// calculate how long we take here
+		long endTime = System.nanoTime();
+		int durationSeconds = (int) TimeUnit.NANOSECONDS.toSeconds(endTime - startTime);
+		System.out.println("Cook(Activity) durationSeconds: " + durationSeconds);
+    	return new CookOutput(durationSeconds, orders.size());    	
     }
 }
