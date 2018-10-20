@@ -31,8 +31,8 @@ public class RestaurantStateMachine_parallel
     	String lambda_prepare_ingredients_agn = "arn:aws:lambda:us-east-1:602307824922:function:PrepareIngredients";
     	String lambda_cook_agn = "arn:aws:lambda:us-east-1:602307824922:function:Cook";
     	String lambda_serve_agn = "arn:aws:lambda:us-east-1:602307824922:function:Serve";
-    	String lambda_start_live_show_agn = "";
-    	String lambda_end_live_show_agn = "";
+    	String lambda_start_live_show_agn = "arn:aws:lambda:us-east-1:602307824922:function:StartLiveShow";
+    	String lambda_end_live_show_agn = "arn:aws:lambda:us-east-1:602307824922:function:EndLiveShow";
     	
     	/** role arn **/
     	String role_agn = "arn:aws:iam::602307824922:role/STEP_FUNCTION_DEMO_COOK";
@@ -43,6 +43,7 @@ public class RestaurantStateMachine_parallel
                 .startAt("Parallel")
                 .state("Parallel", parallelState()
                         .branch(branch()
+                        				.startAt("Prepare Ingredients")
 		                                .state("Prepare Ingredients", taskState()
 		                                        .resource(lambda_prepare_ingredients_agn)
 		                                        .transition(next("Cook")))
@@ -59,7 +60,7 @@ public class RestaurantStateMachine_parallel
 		                                        .transition(end())))
                         .transition(next("End Live Show"))
                         )
-                .state("Start Live Show", taskState()
+                .state("End Live Show", taskState()
                         .resource(lambda_end_live_show_agn)
                         .transition(end()))
                 .build();
