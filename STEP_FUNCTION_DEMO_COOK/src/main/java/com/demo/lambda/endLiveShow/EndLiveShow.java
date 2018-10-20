@@ -1,7 +1,5 @@
 package com.demo.lambda.endLiveShow;
 
-import java.util.Random;
-
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 

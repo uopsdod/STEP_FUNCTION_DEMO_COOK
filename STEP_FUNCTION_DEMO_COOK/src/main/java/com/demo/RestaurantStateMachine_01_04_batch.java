@@ -1,15 +1,16 @@
 package com.demo;
 
-import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.*;
+import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.end;
+import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.next;
+import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.stateMachine;
+import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.taskState;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.stepfunctions.AWSStepFunctions;
 import com.amazonaws.services.stepfunctions.AWSStepFunctionsClientBuilder;
-import com.amazonaws.services.stepfunctions.builder.ErrorCodes;
 import com.amazonaws.services.stepfunctions.builder.StateMachine;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineRequest;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineResult;
-import com.amazonaws.services.stepfunctions.model.ListStateMachinesRequest;
 
 /**
  * Hello world!
