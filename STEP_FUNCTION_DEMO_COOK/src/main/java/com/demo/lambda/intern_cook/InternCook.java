@@ -36,6 +36,12 @@ public class InternCook implements RequestHandler<InternCookInput, InternCookOut
 	}
 }
 /**
- * test data: 
- * {"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":100}
- */
+ * test input:
+{"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":100}
+ * expected output:
+{
+  "workingHour": 1000,
+  "orderNumber": 100
+}
+*/
+

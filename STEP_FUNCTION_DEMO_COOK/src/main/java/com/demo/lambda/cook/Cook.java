@@ -19,6 +19,11 @@ public class Cook implements RequestHandler<CookInput, CookOutput> {
 	}
 }
 /**
- * test data: 
- * {"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":100}
- */
+ * test input:
+{"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":100}
+ * expected output:
+{
+  "workingHour": 1000,
+  "orderNumber": 100
+}
+*/
