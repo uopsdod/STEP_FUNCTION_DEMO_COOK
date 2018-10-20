@@ -32,4 +32,8 @@ public class PrepareIngredientsOutput {
 	public int getOrdersSize() {
 		return this.orders.size();
 	}
+	public List<Order> getOrders() {
+		return orders;
+	}
+	
 }
