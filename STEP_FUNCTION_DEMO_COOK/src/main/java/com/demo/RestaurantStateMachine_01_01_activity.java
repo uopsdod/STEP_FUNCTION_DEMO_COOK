@@ -18,7 +18,7 @@ import com.amazonaws.services.stepfunctions.model.CreateStateMachineResult;
  * Hello world!
  *
  */
-public class RestaurantStateMachine_activity 
+public class RestaurantStateMachine_01_01_activity 
 {
 	static String stateMachineName = "RestaurantStateMachine_activity";
 	
