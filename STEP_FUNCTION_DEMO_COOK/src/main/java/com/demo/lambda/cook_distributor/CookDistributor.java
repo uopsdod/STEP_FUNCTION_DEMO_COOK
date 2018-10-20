@@ -69,6 +69,7 @@ public class CookDistributor implements RequestHandler<CookDistributorInput, Coo
 //    	String credential_profile = "stsai";
  
     	/** actually create a state machine **/
+		// TODO: consider set timeout longer 
         AWSLambdaAsync lambdaAsyncClient = AWSLambdaAsyncClient.asyncBuilder().withCredentials(DefaultAWSCredentialsProviderChain.getInstance()).build();
 		
     	/** get Lambda arn **/

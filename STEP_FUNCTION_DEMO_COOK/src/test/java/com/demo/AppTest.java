@@ -31,13 +31,13 @@ import com.demo.lambda.startLiveShow.StartLiveShowInput;
  */
 public class AppTest 
 {
-	int number = 100;
+	int number = 3;
 	
 	@Test
 	public void testPrepareIngredientResult() {
 		PrepareIngredients prepareIngredients = new PrepareIngredients();
 		PrepareIngredientsInput prepareIngredientsInput = Mockito.mock(PrepareIngredientsInput.class);
-		when(prepareIngredientsInput.getOrderNumber()).thenReturn(100);
+		when(prepareIngredientsInput.getOrderNumber()).thenReturn(number);
 		
 		PrepareIngredientsOutput result = prepareIngredients.getResult(prepareIngredientsInput);
 		Assert.assertThat(result.getIngredients(), is("cilantro,lamb,wine,black pepper"));
@@ -52,9 +52,16 @@ public class AppTest
 		// mock CookInput result 
 		com.demo.lambda.cook.CookInput cookInput = Mockito.mock(com.demo.lambda.cook.CookInput.class);
 		when(cookInput.getOrderNumber()).thenReturn(number);
+		
+		List<com.demo.lambda.cook.Order> orders = new ArrayList<>();
+		/** simulate we got order details for each one **/
+		for (int i = 1; i <= number; i++) {
+			orders.add(new com.demo.lambda.cook.Order());
+		}
+		when(cookInput.getOrders()).thenReturn(orders);
 
 		Assert.assertThat(cook.getResult(cookInput).getOrderNumber(), is(number));
-		Assert.assertThat(cook.getResult(cookInput).getWorkingHour(), is(number*10));
+		Assert.assertThat(cook.getResult(cookInput).getWorkingHour(), is(number*5));
 	}
 
 	@Test
