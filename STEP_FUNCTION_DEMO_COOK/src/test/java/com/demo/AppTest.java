@@ -13,6 +13,7 @@ import java.util.concurrent.Future;
 import static org.hamcrest.CoreMatchers.*;
 
 import com.amazonaws.services.lambda.model.InvokeResult;
+import com.demo.lambda.cook.CookOutput;
 import com.demo.lambda.cook_distributor.CookDistributor;
 import com.demo.lambda.cook_distributor.CookDistributorInput;
 import com.demo.lambda.endLiveShow.EndLiveShow;
@@ -60,8 +61,9 @@ public class AppTest
 		}
 		when(cookInput.getOrders()).thenReturn(orders);
 
-		Assert.assertThat(cook.getResult(cookInput).getOrderNumber(), is(number));
-		Assert.assertThat(cook.getResult(cookInput).getWorkingSeconds(), is(number*5));
+		CookOutput result = cook.getResult(cookInput);
+		Assert.assertThat(result.getOrderNumber(), is(number));
+		Assert.assertThat(result.getWorkingSeconds(), is(number*5));
 	}
 
 	@Test
