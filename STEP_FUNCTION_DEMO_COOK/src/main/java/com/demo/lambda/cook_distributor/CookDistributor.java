@@ -114,9 +114,7 @@ public class CookDistributor implements RequestHandler<CookDistributorInput, Coo
 /**
  * test input:
 {"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":100}
+{"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":3,"orders":[{"orderId":1},{"orderId":2},{"orderId":3}],"ordersSize":3}
  * expected output:
-{
-  "workingSeconds": 1000,
-  "orderNumber": 100
-}
+{"workingSeconds":12,"orderNumber":3}
 */
