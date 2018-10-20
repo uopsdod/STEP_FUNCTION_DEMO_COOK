@@ -15,7 +15,7 @@ import com.amazonaws.services.stepfunctions.model.ListStateMachinesRequest;
  * Hello world!
  *
  */
-public class RestaurantStateMachine 
+public class RestaurantStateMachine_parallel 
 {
     public static void main( String[] args )
     {
@@ -37,15 +37,15 @@ public class RestaurantStateMachine
         final StateMachine stateMachine = stateMachine()
                 .comment("Run a restaurant")
                 .startAt("Prepare Ingredients")
-                .state("Prepare Ingredients", taskState()
-                        .resource(lambda_prepare_ingredients_agn)
-                        .transition(next("Cook")))
-                .state("Cook", taskState()
-                        .resource(lambda_cook_agn)
-                        .transition(next("Serve")))
-                .state("Serve", taskState()
-                        .resource(lambda_serve_agn)
-                        .transition(end()))
+//                .state("Prepare Ingredients", taskState()
+//                        .resource(lambda_prepare_ingredients_agn)
+//                        .transition(next("Cook")))
+//                .state("Cook", taskState()
+//                        .resource(lambda_cook_agn)
+//                        .transition(next("Serve")))
+//                .state("Serve", taskState()
+//                        .resource(lambda_serve_agn)
+//                        .transition(end()))
                 .build();
         System.out.println(stateMachine.toPrettyJson());
         
