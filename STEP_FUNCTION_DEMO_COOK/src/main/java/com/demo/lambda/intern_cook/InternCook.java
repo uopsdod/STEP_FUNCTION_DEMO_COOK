@@ -1,6 +1,8 @@
 package com.demo.lambda.intern_cook;
 
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -16,8 +18,20 @@ public class InternCook implements RequestHandler<InternCookInput, InternCookOut
     		throw new RuntimeException("InternCook screws up this time");
     	}
     	
-    	int workingSeconds = cookInput.getOrderNumber() * 10;
-    	return new InternCookOutput(workingSeconds, cookInput.getOrderNumber());
+    	long startTime = System.nanoTime();
+    	List<Order> orders = cookInput.getOrders();
+    	for (Order order : orders) {
+			try {
+				TimeUnit.SECONDS.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+    	// calculate how long we take here
+		long endTime = System.nanoTime();
+		int durationSeconds = (int) TimeUnit.NANOSECONDS.toSeconds(endTime - startTime);
+		System.out.println("InternCook durationSeconds: " + durationSeconds);
+    	return new InternCookOutput(durationSeconds, orders.size());
     }
 
 	public InternCookOutput handleRequest(InternCookInput event, Context context) {
@@ -37,7 +51,7 @@ public class InternCook implements RequestHandler<InternCookInput, InternCookOut
 }
 /**
  * test input:
-{"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":100}
+{"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":1,"orders":[{"orderId":101}],"ordersSize":1}
  * expected output:
 {
   "workingSeconds": 1000,

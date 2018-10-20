@@ -20,6 +20,7 @@ import com.demo.lambda.endLiveShow.EndLiveShow;
 import com.demo.lambda.endLiveShow.EndLiveShowInput;
 import com.demo.lambda.intern_cook.InternCook;
 import com.demo.lambda.intern_cook.InternCookInput;
+import com.demo.lambda.intern_cook.InternCookOutput;
 import com.demo.lambda.prepare_ingredients.PrepareIngredients;
 import com.demo.lambda.prepare_ingredients.PrepareIngredientsInput;
 import com.demo.lambda.prepare_ingredients.PrepareIngredientsOutput;
@@ -95,9 +96,17 @@ public class AppTest
 		
 		InternCookInput internCookInput = Mockito.mock(InternCookInput.class);
 		when(internCookInput.getOrderNumber()).thenReturn(number);
+		
+		List<com.demo.lambda.intern_cook.Order> orders = new ArrayList<>();
+		/** simulate we got order details for each one **/
+		for (int i = 1; i <= number; i++) {
+			orders.add(new com.demo.lambda.intern_cook.Order());
+		}
+		when(internCookInput.getOrders()).thenReturn(orders);		
 
-		Assert.assertThat(internCook.getResult(internCookInput).getOrderNumber(), is(number));
-		Assert.assertThat(internCook.getResult(internCookInput).getWorkingSeconds(), is(number*10));
+		InternCookOutput result = internCook.getResult(internCookInput);
+		Assert.assertThat(result.getOrderNumber(), is(number));
+		Assert.assertThat(result.getWorkingSeconds(), is(number*5));
 	}	
 	
 	@Test(expected = RuntimeException.class)
