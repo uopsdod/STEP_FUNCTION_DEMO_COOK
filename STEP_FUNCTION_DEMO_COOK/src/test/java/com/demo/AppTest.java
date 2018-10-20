@@ -35,6 +35,7 @@ public class AppTest
 		PrepareIngredientsOutput result = prepareIngredients.getResult(prepareIngredientsInput);
 		Assert.assertThat(result.getIngredients(), is("cilantro,lamb,wine,black pepper"));
 		Assert.assertThat(result.getOrderNumber(), is(number));
+		Assert.assertThat(result.getOrdersSize(), is(number));
 	}
 	
 	
