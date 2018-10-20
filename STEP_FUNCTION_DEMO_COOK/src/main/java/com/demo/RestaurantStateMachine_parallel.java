@@ -17,6 +17,8 @@ import com.amazonaws.services.stepfunctions.model.ListStateMachinesRequest;
  */
 public class RestaurantStateMachine_parallel 
 {
+	static String stateMachineName = "RestaurantStateMachine_parallel";
+	
     public static void main( String[] args )
     {
     	/** get aws credential profile **/
@@ -29,6 +31,8 @@ public class RestaurantStateMachine_parallel
     	String lambda_prepare_ingredients_agn = "arn:aws:lambda:us-east-1:602307824922:function:PrepareIngredients";
     	String lambda_cook_agn = "arn:aws:lambda:us-east-1:602307824922:function:Cook";
     	String lambda_serve_agn = "arn:aws:lambda:us-east-1:602307824922:function:Serve";
+    	String lambda_start_live_show_agn = "";
+    	String lambda_end_live_show_agn = "";
     	
     	/** role arn **/
     	String role_agn = "arn:aws:iam::602307824922:role/STEP_FUNCTION_DEMO_COOK";
@@ -36,21 +40,33 @@ public class RestaurantStateMachine_parallel
         /** define state machine **/
         final StateMachine stateMachine = stateMachine()
                 .comment("Run a restaurant")
-                .startAt("Prepare Ingredients")
-//                .state("Prepare Ingredients", taskState()
-//                        .resource(lambda_prepare_ingredients_agn)
-//                        .transition(next("Cook")))
-//                .state("Cook", taskState()
-//                        .resource(lambda_cook_agn)
-//                        .transition(next("Serve")))
-//                .state("Serve", taskState()
-//                        .resource(lambda_serve_agn)
-//                        .transition(end()))
+                .startAt("Parallel")
+                .state("Parallel", parallelState()
+                        .branch(branch()
+		                                .state("Prepare Ingredients", taskState()
+		                                        .resource(lambda_prepare_ingredients_agn)
+		                                        .transition(next("Cook")))
+		                                .state("Cook", taskState()
+		                                        .resource(lambda_cook_agn)
+		                                        .transition(next("Serve")))
+		                                .state("Serve", taskState()
+		                                        .resource(lambda_serve_agn)
+		                                        .transition(end())))
+                        .branch(branch()
+                                        .startAt("Start Live Show")
+                                        .state("Start Live Show", taskState()
+		                                        .resource(lambda_start_live_show_agn)
+		                                        .transition(end())))
+                        .transition(next("End Live Show"))
+                        )
+                .state("Start Live Show", taskState()
+                        .resource(lambda_end_live_show_agn)
+                        .transition(end()))
                 .build();
         System.out.println(stateMachine.toPrettyJson());
         
         CreateStateMachineResult createStateMachine = client.createStateMachine(new CreateStateMachineRequest()
-                                                  .withName("RestaurantStateMachine")
+                                                  .withName(stateMachineName)
                                                   .withRoleArn(role_agn)
                                                   .withDefinition(stateMachine));
         System.out.println(createStateMachine.getStateMachineArn());
