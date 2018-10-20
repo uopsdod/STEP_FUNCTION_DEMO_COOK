@@ -20,3 +20,12 @@ public class PrepareIngredients implements RequestHandler<PrepareIngredientsInpu
 	}
     
 }
+/**
+ * test input:
+ * {"orderNumber": 100}
+ * expected output:
+ * {
+ *   "ingredients": "cilantro,lamb,wine,black pepper",
+ *   "orderNumber": 100
+ * }
+ */
