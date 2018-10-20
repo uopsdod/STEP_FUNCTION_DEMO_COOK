@@ -15,7 +15,7 @@ import com.amazonaws.services.stepfunctions.model.ListStateMachinesRequest;
  * Hello world!
  *
  */
-public class RestaurantStateMachine_01_03_retry 
+public class RestaurantStateMachine_01_02_retry 
 {
 	static String stateMachineName = "RestaurantStateMachine_retry";
 	

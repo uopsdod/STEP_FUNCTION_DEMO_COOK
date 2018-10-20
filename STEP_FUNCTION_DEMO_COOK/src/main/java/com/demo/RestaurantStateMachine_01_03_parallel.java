@@ -15,7 +15,7 @@ import com.amazonaws.services.stepfunctions.model.ListStateMachinesRequest;
  * Hello world!
  *
  */
-public class RestaurantStateMachine_01_02_parallel 
+public class RestaurantStateMachine_01_03_parallel 
 {
 	static String stateMachineName = "RestaurantStateMachine_parallel";
 	
