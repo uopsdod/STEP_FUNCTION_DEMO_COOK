@@ -8,6 +8,8 @@ import static org.mockito.Mockito.spy;
 
 import static org.hamcrest.CoreMatchers.*;
 
+import com.demo.lambda.endLiveShow.EndLiveShow;
+import com.demo.lambda.endLiveShow.EndLiveShowInput;
 import com.demo.lambda.intern_cook.InternCook;
 import com.demo.lambda.intern_cook.InternCookInput;
 import com.demo.lambda.prepare_ingredients.PrepareIngredients;
@@ -15,6 +17,8 @@ import com.demo.lambda.prepare_ingredients.PrepareIngredientsInput;
 import com.demo.lambda.prepare_ingredients.PrepareIngredientsOutput;
 import com.demo.lambda.serve.Serve;
 import com.demo.lambda.serve.ServeInput;
+import com.demo.lambda.startLiveShow.StartLiveShow;
+import com.demo.lambda.startLiveShow.StartLiveShowInput;
 /**
  * Unit test for simple App.
  */
@@ -88,6 +92,20 @@ public class AppTest
 		InternCookInput internCookInput = Mockito.mock(InternCookInput.class);
 
 		internCook.getResult(internCookInput); // expect RuntimeException here 
+	}	
+	
+	@Test
+	public void testStartLiveShowResult() {
+		StartLiveShow startLiveShow = new StartLiveShow();
+		StartLiveShowInput startLiveShowInput = Mockito.mock(StartLiveShowInput.class);
+		Assert.assertThat(startLiveShow.getResult(startLiveShowInput).getResult(), is("Started TV Show"));
+	}	
+
+	@Test
+	public void testEndLiveShowResult() {
+		EndLiveShow endLiveShow = new EndLiveShow();
+		EndLiveShowInput endLiveShowInput = Mockito.mock(EndLiveShowInput.class);
+		Assert.assertThat(endLiveShow.getResult(endLiveShowInput).getResult(), is("Ended TV Show"));
 	}	
 	
 }
