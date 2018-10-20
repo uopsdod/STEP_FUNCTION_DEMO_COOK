@@ -4,11 +4,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.spy;
 
 import static org.hamcrest.CoreMatchers.*;
 
-import com.demo.lambda.cook.Cook;
-import com.demo.lambda.cook.CookInput;
+import com.demo.lambda.intern_cook.InternCook;
+import com.demo.lambda.intern_cook.InternCookInput;
 import com.demo.lambda.prepare_ingredients.PrepareIngredients;
 import com.demo.lambda.prepare_ingredients.PrepareIngredientsInput;
 import com.demo.lambda.prepare_ingredients.PrepareIngredientsOutput;
@@ -35,9 +36,9 @@ public class AppTest
 	
 	@Test
 	public void testCookResult() {
-		Cook cook = new Cook();
+		com.demo.lambda.cook.Cook cook = new com.demo.lambda.cook.Cook();
 		// mock CookInput result 
-		CookInput cookInput = Mockito.mock(CookInput.class);
+		com.demo.lambda.cook.CookInput cookInput = Mockito.mock(com.demo.lambda.cook.CookInput.class);
 		when(cookInput.getOrderNumber()).thenReturn(number);
 
 		Assert.assertThat(cook.getResult(cookInput).getOrderNumber(), is(number));
@@ -64,5 +65,29 @@ public class AppTest
 
 		Assert.assertThat(serve.getResult(serveInput).getResultMsg(), is(number + " meals are served and it takes " + number*10 + " hours"));
 	}		
+	
+	@Test
+	public void testInternCookResultSuccess() {
+		/** partial mock **/
+		InternCook internCook = spy(new InternCook());
+		when(internCook.willSucceedThisTime()).thenReturn(true);
+		
+		InternCookInput internCookInput = Mockito.mock(InternCookInput.class);
+		when(internCookInput.getOrderNumber()).thenReturn(number);
+
+		Assert.assertThat(internCook.getResult(internCookInput).getOrderNumber(), is(number));
+		Assert.assertThat(internCook.getResult(internCookInput).getWorkingHour(), is(number*10));
+	}	
+	
+	@Test(expected = RuntimeException.class)
+	public void testInternCookResultFailure() {
+		/** partial mock **/
+		InternCook internCook = spy(new InternCook());
+		when(internCook.willSucceedThisTime()).thenReturn(false);
+		
+		InternCookInput internCookInput = Mockito.mock(InternCookInput.class);
+
+		internCook.getResult(internCookInput); // expect RuntimeException here 
+	}	
 	
 }
