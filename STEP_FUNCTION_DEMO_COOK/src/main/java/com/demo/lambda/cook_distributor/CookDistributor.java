@@ -1,8 +1,6 @@
 package com.demo.lambda.cook_distributor;
 
-import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -10,15 +8,12 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.lambda.AWSLambdaAsync;
 import com.amazonaws.services.lambda.AWSLambdaAsyncClient;
 import com.amazonaws.services.lambda.model.InvokeRequest;
 import com.amazonaws.services.lambda.model.InvokeResult;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.amazonaws.services.stepfunctions.AWSStepFunctions;
-import com.amazonaws.services.stepfunctions.AWSStepFunctionsClientBuilder;
 import com.google.gson.Gson;
 
 public class CookDistributor implements RequestHandler<CookDistributorInput, CookDistributorOutput> {
@@ -31,10 +26,10 @@ public class CookDistributor implements RequestHandler<CookDistributorInput, Coo
     	// invoke lambda asynchronously and gather their result after we invoke them all
     	// advantage: here, we take advantage of the auto-scaling feature of lambda to have a great performance 
     	List<Order> orders = cookInput.getOrders();
-    	List<Future<InvokeResult>> futures = distirbute(orders, cookInput);
+		List<Future<InvokeResult>> futures = distirbute(cookInput.getIngredients(), cookInput.getOrderNumber(), orders);
 		
 		// wait for the lambdas to get back (TODO: it might be good to set some timeout here)
-//    	waitForProcessing(futures);
+    	waitForProcessing(futures);
 		
 		// calculate how long we take here
 		long endTime = System.nanoTime();
@@ -44,25 +39,25 @@ public class CookDistributor implements RequestHandler<CookDistributorInput, Coo
     	return new CookDistributorOutput(durationSeconds, orders.size());
     }
 
-//    public void waitForProcessing(List<Future<InvokeResult>> futures) {
-//		for (Future<InvokeResult> future : futures) {
-//			try {
-//				InvokeResult invokeResult = future.get();
-//			    String payload = "";
-//			    if(invokeResult.getPayload() != null){
-//			        payload = new String(invokeResult.getPayload().array(), Charset.forName("UTF-8"));
-//			        System.out.println("CookDistributor payload: " + payload);
-//			    }else {
-//			    	System.out.println("CookDistributor no payload");
-//			    }
-//			} catch (InterruptedException | ExecutionException e) {
-//				System.out.println("CookDistributor e: " + e.getMessage());
-//				e.printStackTrace();
-//			}
-//		}
-//	}
+    public void waitForProcessing(List<Future<InvokeResult>> futures) {
+		for (Future<InvokeResult> future : futures) {
+			try {
+				InvokeResult invokeResult = future.get();
+			    String payload = "";
+			    if(invokeResult.getPayload() != null){
+			        payload = new String(invokeResult.getPayload().array(), Charset.forName("UTF-8"));
+			        System.out.println("CookDistributor payload: " + payload);
+			    }else {
+			    	System.out.println("CookDistributor no payload");
+			    }
+			} catch (InterruptedException | ExecutionException e) {
+				System.out.println("CookDistributor e: " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	}
 
-	public List<Future<InvokeResult>> distirbute(List<Order> orders, CookDistributorInput cookInput) {
+	public List<Future<InvokeResult>> distirbute(String ingredients, int orderNumber, List<Order> orders) {
 		Gson gson = new Gson();
 		
 		/** get aws credential profile **/
@@ -78,29 +73,12 @@ public class CookDistributor implements RequestHandler<CookDistributorInput, Coo
         List<Future<InvokeResult>> futures = new ArrayList<>();
     	System.out.println("CookDistributor orders size: " + orders.size());
 		for (Order order : orders) {
-	        CookDistributorCookOutput cookDistributorCookOutput = new CookDistributorCookOutput(cookInput.getIngredients(),cookInput.getOrderNumber(),order);
+	        CookDistributorCookOutput cookDistributorCookOutput = new CookDistributorCookOutput(ingredients,orderNumber,order);
 	        InvokeRequest invoke = new InvokeRequest();
 			invoke.withFunctionName(lambda_cook_agn)
 	                .withPayload(gson.toJson(cookDistributorCookOutput)); // TODO - change CookInput (let's do it)
 	        Future<InvokeResult> future = lambdaAsyncClient.invokeAsync(invoke);
 	        futures.add(future);
-		}
-		
-		// wait for the lambdas to get back (TODO: it might be good to set some timeout here)
-		for (Future<InvokeResult> future : futures) {
-			try {
-				InvokeResult invokeResult = future.get();
-			    String payload = "";
-			    if(invokeResult.getPayload() != null){
-			        payload = new String(invokeResult.getPayload().array(), Charset.forName("UTF-8"));
-			        System.out.println("CookDistributor payload: " + payload);
-			    }else {
-			    	System.out.println("CookDistributor no payload");
-			    }
-			} catch (InterruptedException | ExecutionException e) {
-				System.out.println("CookDistributor e: " + e.getMessage());
-				e.printStackTrace();
-			}
 		}
 		
 		return futures;
