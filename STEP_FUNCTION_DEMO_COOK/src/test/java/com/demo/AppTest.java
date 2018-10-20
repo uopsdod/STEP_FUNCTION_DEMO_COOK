@@ -6,8 +6,15 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.spy;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Future;
+
 import static org.hamcrest.CoreMatchers.*;
 
+import com.amazonaws.services.lambda.model.InvokeResult;
+import com.demo.lambda.cook_distributor.CookDistributor;
+import com.demo.lambda.cook_distributor.CookDistributorInput;
 import com.demo.lambda.endLiveShow.EndLiveShow;
 import com.demo.lambda.endLiveShow.EndLiveShowInput;
 import com.demo.lambda.intern_cook.InternCook;
@@ -109,4 +116,22 @@ public class AppTest
 		Assert.assertThat(endLiveShow.getResult(endLiveShowInput).getResult(), is("Ended TV Show"));
 	}	
 	
+	@Test
+	public void testCookDistributorResult() {
+		CookDistributorInput cookDistributorInput = Mockito.mock(CookDistributorInput.class);
+		List<com.demo.lambda.cook_distributor.Order> orders = new ArrayList<>();
+		/** simulate we got order details for each one **/
+		for (int i = 1; i <= number; i++) {
+			orders.add(new com.demo.lambda.cook_distributor.Order());
+		}
+		when(cookDistributorInput.getOrders()).thenReturn(orders);
+		
+		/** partial mock **/
+		CookDistributor cookDistributor = spy(new CookDistributor());
+		when(cookDistributor.distirbute(orders)).thenReturn(new ArrayList<Future<InvokeResult>>());
+		Mockito.doNothing().when(cookDistributor).waitForProcessing(new ArrayList<Future<InvokeResult>>());
+		
+		Assert.assertThat(cookDistributor.getResult(cookDistributorInput).getOrderNumber(), is(number));
+		// TODO: add second check (howerver, it's zero second now)
+	}
 }
