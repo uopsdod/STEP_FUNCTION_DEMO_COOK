@@ -42,8 +42,10 @@ public class RestaurantStateMachine_01_03_choice
                         .choice(choice()
                                         .transition(next("Vacation"))
                                         .condition(eq("$.isHoliday", true)))
+                        .choice(choice()
+		                        		.transition(next("Prepare Ingredients"))
+		                                .condition(eq("$.isHoliday", false)))                        
                         .defaultStateName("Prepare Ingredients"))                
-                
                 .state("Prepare Ingredients", taskState()
                         .resource(lambda_prepare_ingredients_agn)
                         .transition(next("Cook")))
