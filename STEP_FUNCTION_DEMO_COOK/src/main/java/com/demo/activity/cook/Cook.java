@@ -1,4 +1,4 @@
-package com.demo.activity;
+package com.demo.activity.cook;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +51,7 @@ public class Cook {
 		System.out.println("found work! - taskToken: " + activityTask.getTaskToken());
 		System.out.println("found work! - input: " + activityTask.getInput());
 		Gson gson = new Gson();
-		com.demo.activity.CookInput cookInput = gson.fromJson(activityTask.getInput(), com.demo.activity.CookInput.class);
+		com.demo.activity.cook.CookInput cookInput = gson.fromJson(activityTask.getInput(), com.demo.activity.cook.CookInput.class);
 		
 		boolean workOK = true;
 		if (workOK) {
@@ -61,7 +61,7 @@ public class Cook {
 		}		
 	}
 	
-    public CookOutput getResult(com.demo.activity.CookInput cookInput) {
+    public CookOutput getResult(com.demo.activity.cook.CookInput cookInput) {
     	long startTime = System.nanoTime();
     	List<Order> orders = cookInput.getOrders();
     	for (Order order : orders) {

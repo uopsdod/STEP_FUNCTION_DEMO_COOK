@@ -1,4 +1,4 @@
-package com.demo.activity;
+package com.demo.activity.cook;
 
 public class CookOutput {
 	int workingSeconds;

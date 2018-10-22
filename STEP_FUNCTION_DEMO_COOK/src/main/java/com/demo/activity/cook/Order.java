@@ -1,4 +1,4 @@
-package com.demo.activity;
+package com.demo.activity.cook;
 
 public class Order {
 	private static int staticCount = 0;

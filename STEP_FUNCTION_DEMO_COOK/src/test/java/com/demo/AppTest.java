@@ -69,19 +69,19 @@ public class AppTest
 
 	@Test
 	public void testActivityCookResult() {
-		com.demo.activity.Cook cook = new com.demo.activity.Cook();
+		com.demo.activity.cook.Cook cook = new com.demo.activity.cook.Cook();
 		// mock CookInput result 
-		com.demo.activity.CookInput cookInput = Mockito.mock(com.demo.activity.CookInput.class);
+		com.demo.activity.cook.CookInput cookInput = Mockito.mock(com.demo.activity.cook.CookInput.class);
 		when(cookInput.getOrderNumber()).thenReturn(number);
 		
-		List<com.demo.activity.Order> orders = new ArrayList<>();
+		List<com.demo.activity.cook.Order> orders = new ArrayList<>();
 		/** simulate we got order details for each one **/
 		for (int i = 1; i <= number; i++) {
-			orders.add(new com.demo.activity.Order());
+			orders.add(new com.demo.activity.cook.Order());
 		}
 		when(cookInput.getOrders()).thenReturn(orders);
 
-		com.demo.activity.CookOutput result = cook.getResult(cookInput);
+		com.demo.activity.cook.CookOutput result = cook.getResult(cookInput);
 		Assert.assertThat(result.getOrderNumber(), is(number));
 		Assert.assertTrue(result.getWorkingSeconds() > 0);
 	}
