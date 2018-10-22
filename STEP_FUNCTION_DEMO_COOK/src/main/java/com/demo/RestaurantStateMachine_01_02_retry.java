@@ -12,6 +12,7 @@ import com.amazonaws.services.stepfunctions.AWSStepFunctionsClientBuilder;
 import com.amazonaws.services.stepfunctions.builder.StateMachine;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineRequest;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineResult;
+import com.demo.lambda.util.AwsUtil;
 
 /**
  * Hello world!
@@ -23,6 +24,9 @@ public class RestaurantStateMachine_01_02_retry
 	
     public static void main( String[] args )
     {
+    	/** check parameter **/
+    	AwsUtil.checkEnvVariables();
+    	
     	/** actually create a state machine **/
         final AWSStepFunctions client = AWSStepFunctionsClientBuilder.standard().withCredentials(DefaultAWSCredentialsProviderChain.getInstance()).build();
      	

@@ -13,6 +13,7 @@ import com.amazonaws.services.stepfunctions.model.CreateActivityRequest;
 import com.amazonaws.services.stepfunctions.model.CreateActivityResult;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineRequest;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineResult;
+import com.demo.lambda.util.AwsUtil;
 
 /**
  * Hello world!
@@ -24,6 +25,10 @@ public class RestaurantStateMachine_01_01_activity
 	
     public static void main( String[] args )
     {
+    	
+    	/** check parameter **/
+    	AwsUtil.checkEnvVariables();    	
+    	
     	/** get an AWS Setp function client **/
     	final AWSStepFunctions client = AWSStepFunctionsClientBuilder.standard().withCredentials(DefaultAWSCredentialsProviderChain.getInstance()).build();
     	
