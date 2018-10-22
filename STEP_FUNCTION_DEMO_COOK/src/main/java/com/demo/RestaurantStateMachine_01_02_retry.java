@@ -55,7 +55,7 @@ public class RestaurantStateMachine_01_02_retry
                         .resource(lambda_intern_cook_agn)
                         .retrier(retrier()
                                 .retryOnAllErrors()
-                                .intervalSeconds(5)
+                                .intervalSeconds(3)
                                 .maxAttempts(2)
                                 .backoffRate(2.0))
                         .transition(next("Serve")))
