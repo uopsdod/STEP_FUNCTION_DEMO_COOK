@@ -24,7 +24,7 @@ import com.demo.util.AwsUtil;
  * Hello world!
  *
  */
-public class RestaurantStateMachine_01_02_00_retry
+public class RestaurantStateMachine_03_retry
 {
 	static String stateMachineName = "RestaurantStateMachine_retry";
 	

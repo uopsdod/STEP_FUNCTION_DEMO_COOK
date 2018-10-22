@@ -19,7 +19,7 @@ import com.demo.util.AwsUtil;
  * Hello world!
  *
  */
-public class RestaurantStateMachine_01_04_parallel 
+public class RestaurantStateMachine_06_parallel 
 {
 	static String stateMachineName = "RestaurantStateMachine_parallel";
 	

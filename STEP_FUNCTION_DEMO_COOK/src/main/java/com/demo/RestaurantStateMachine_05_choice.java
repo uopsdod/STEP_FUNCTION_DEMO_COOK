@@ -1,25 +1,22 @@
 package com.demo;
 
-import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.end;
-import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.next;
-import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.stateMachine;
-import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.taskState;
+import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.*;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.stepfunctions.AWSStepFunctions;
 import com.amazonaws.services.stepfunctions.AWSStepFunctionsClientBuilder;
 import com.amazonaws.services.stepfunctions.builder.StateMachine;
-import com.amazonaws.services.stepfunctions.model.CreateStateMachineRequest;
-import com.amazonaws.services.stepfunctions.model.CreateStateMachineResult;
+import com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder;
+import com.amazonaws.services.stepfunctions.builder.states.PassState;
 import com.demo.util.AwsUtil;
 
 /**
  * Hello world!
  *
  */
-public class RestaurantStateMachine_01_00_lambda 
+public class RestaurantStateMachine_05_choice 
 {
-	static String stateMachineName = "RestaurantStateMachine_lambda";
+	static String stateMachineName = "RestaurantStateMachine_choice";
 	
     public static void main( String[] args )
     {
@@ -40,7 +37,15 @@ public class RestaurantStateMachine_01_00_lambda
         /** define state machine **/
         final StateMachine stateMachine = stateMachine()
                 .comment("Run a restaurant")
-                .startAt("Prepare Ingredients")
+                .startAt("Is Holiday?")
+                .state("Is Holiday?", choiceState()
+                        .choice(choice()
+                                        .transition(next("Vacation"))
+                                        .condition(eq("$.isHoliday", true)))
+                        .choice(choice()
+		                        		.transition(next("Prepare Ingredients"))
+		                                .condition(eq("$.isHoliday", false)))                        
+                        .defaultStateName("Prepare Ingredients"))                
                 .state("Prepare Ingredients", taskState()
                         .resource(lambda_prepare_ingredients_agn)
                         .transition(next("Cook")))
@@ -50,6 +55,9 @@ public class RestaurantStateMachine_01_00_lambda
                 .state("Serve", taskState()
                         .resource(lambda_serve_agn)
                         .transition(end()))
+                .state("Vacation", PassState.builder()
+                		.result("{\"result\": \"Take a day off.\"}")
+                		.transition(end()))                 
                 .build();
         System.out.println(stateMachine.toPrettyJson());
 
