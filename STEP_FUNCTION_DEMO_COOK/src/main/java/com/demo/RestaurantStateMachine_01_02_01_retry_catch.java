@@ -13,6 +13,8 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.stepfunctions.AWSStepFunctions;
 import com.amazonaws.services.stepfunctions.AWSStepFunctionsClientBuilder;
 import com.amazonaws.services.stepfunctions.builder.StateMachine;
+import com.amazonaws.services.stepfunctions.builder.states.Catcher;
+import com.amazonaws.services.stepfunctions.builder.states.PassState;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineRequest;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineResult;
 import com.amazonaws.services.stepfunctions.model.StateMachineAlreadyExistsException;
@@ -24,9 +26,9 @@ import com.demo.util.AwsUtil;
  * Hello world!
  *
  */
-public class RestaurantStateMachine_01_02_retry
+public class RestaurantStateMachine_01_02_01_retry_catch
 {
-	static String stateMachineName = "RestaurantStateMachine_retry";
+	static String stateMachineName = "RestaurantStateMachine_retry_catch";
 	
     public static void main( String[] args )
     {
@@ -44,7 +46,10 @@ public class RestaurantStateMachine_01_02_retry
     	/** role arn **/
     	String role_agn = "arn:aws:iam::602307824922:role/STEP_FUNCTION_DEMO_COOK";
     	
-        /** define state machine **/
+        Catcher build = Catcher.builder()
+		        .catchAll()
+		        .transition(next("Catch All Fallback")).build();
+		/** define state machine **/
         final StateMachine stateMachine = stateMachine()
                 .comment("Run a restaurant")
                 .startAt("Prepare Ingredients")
@@ -58,10 +63,17 @@ public class RestaurantStateMachine_01_02_retry
                                 .intervalSeconds(3)
                                 .maxAttempts(2)
                                 .backoffRate(2.0))
-                        .transition(next("Serve")))
+                        .transition(next("Serve"))
+                        .catcher(Catcher.builder()
+                		        .catchAll()
+                		        .transition(next("Notify Chef"))))
                 .state("Serve", taskState()
                         .resource(lambda_serve_agn)
                         .transition(end()))
+                .state("Notify Chef", PassState.builder()
+                		.result("{\"resukt\": \"Hey Chef, I wasted all the ingredients.\"}")
+                		.transition(end())) 
+                               
                 .build();
         System.out.println(stateMachine.toPrettyJson());
         
