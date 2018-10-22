@@ -13,7 +13,7 @@ import com.amazonaws.services.stepfunctions.model.CreateActivityRequest;
 import com.amazonaws.services.stepfunctions.model.CreateActivityResult;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineRequest;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineResult;
-import com.demo.lambda.util.AwsUtil;
+import com.demo.util.AwsUtil;
 
 /**
  * Hello world!
@@ -60,10 +60,6 @@ public class RestaurantStateMachine_01_01_activity
         System.out.println(stateMachine.toPrettyJson());
         
         /** actually create a state machine **/
-        CreateStateMachineResult createStateMachine = client.createStateMachine(new CreateStateMachineRequest()
-                                                  .withName(stateMachineName)
-                                                  .withRoleArn(role_agn)
-                                                  .withDefinition(stateMachine));
-        System.out.println(createStateMachine.getStateMachineArn());
+        AwsUtil.createOrUpdateStateMachine(client, stateMachine, role_agn, stateMachineName);
     }
 }

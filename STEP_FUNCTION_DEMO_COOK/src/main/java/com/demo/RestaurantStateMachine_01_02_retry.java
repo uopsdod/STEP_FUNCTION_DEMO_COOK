@@ -6,19 +6,25 @@ import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.r
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.stateMachine;
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.taskState;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.stepfunctions.AWSStepFunctions;
 import com.amazonaws.services.stepfunctions.AWSStepFunctionsClientBuilder;
 import com.amazonaws.services.stepfunctions.builder.StateMachine;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineRequest;
 import com.amazonaws.services.stepfunctions.model.CreateStateMachineResult;
-import com.demo.lambda.util.AwsUtil;
+import com.amazonaws.services.stepfunctions.model.StateMachineAlreadyExistsException;
+import com.amazonaws.services.stepfunctions.model.UpdateStateMachineRequest;
+import com.amazonaws.services.stepfunctions.model.UpdateStateMachineResult;
+import com.demo.util.AwsUtil;
 
 /**
  * Hello world!
  *
  */
-public class RestaurantStateMachine_01_02_retry 
+public class RestaurantStateMachine_01_02_retry
 {
 	static String stateMachineName = "RestaurantStateMachine_retry";
 	
@@ -50,7 +56,7 @@ public class RestaurantStateMachine_01_02_retry
                         .retrier(retrier()
                                 .retryOnAllErrors()
                                 .intervalSeconds(5)
-                                .maxAttempts(6)
+                                .maxAttempts(2)
                                 .backoffRate(2.0))
                         .transition(next("Serve")))
                 .state("Serve", taskState()
@@ -59,10 +65,9 @@ public class RestaurantStateMachine_01_02_retry
                 .build();
         System.out.println(stateMachine.toPrettyJson());
         
-        CreateStateMachineResult createStateMachine = client.createStateMachine(new CreateStateMachineRequest()
-                                                  .withName(stateMachineName)
-                                                  .withRoleArn(role_agn)
-                                                  .withDefinition(stateMachine));
-        System.out.println(createStateMachine.getStateMachineArn());
+        /** actually create a state machine **/
+        AwsUtil.createOrUpdateStateMachine(client, stateMachine, role_agn, stateMachineName);
     }
+
+
 }

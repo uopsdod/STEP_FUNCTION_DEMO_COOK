@@ -43,7 +43,7 @@ public class InternCook implements RequestHandler<InternCookInput, InternCookOut
 	public boolean willSucceedThisTime() {
     	Random randomNum = new Random();
     	int randomSuccess = 1 + randomNum.nextInt(3); // 1 or 2 or 3
-    	if (randomSuccess != 1) {
+    	if (randomSuccess == 1) {
     		return false;
     	}
     	return true;
