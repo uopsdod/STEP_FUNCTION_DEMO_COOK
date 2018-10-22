@@ -14,7 +14,7 @@ import com.demo.util.AwsUtil;
  * Hello world!
  *
  */
-public class RestaurantStateMachine_01_0300_choice 
+public class RestaurantStateMachine_01_03_choice 
 {
 	static String stateMachineName = "RestaurantStateMachine_choice";
 	

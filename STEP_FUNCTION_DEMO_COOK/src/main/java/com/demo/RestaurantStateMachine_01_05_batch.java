@@ -17,7 +17,7 @@ import com.demo.util.AwsUtil;
  * Hello world!
  *
  */
-public class RestaurantStateMachine_01_04_batch 
+public class RestaurantStateMachine_01_05_batch 
 {
 	static String stateMachineName = "RestaurantStateMachine_batch";
 	
