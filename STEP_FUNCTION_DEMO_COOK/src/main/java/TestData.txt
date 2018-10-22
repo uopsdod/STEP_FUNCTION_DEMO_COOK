@@ -1,0 +1,34 @@
+* test input:
+{
+  "orderNumber": 1,
+  "isHoliday": true
+}
+
+ * expected output:
+{
+  "result": "Take a day off."
+}
+ 
+* test input:
+{
+  "orderNumber": 1,
+  "isHoliday": false
+}
+
+ * expected output: 
+{
+  "resultMsg": "1 meals are served and it takes 5 seconds"
+}
+ 
+* test input:
+{
+  "orderNumber": 3,
+  "isHoliday": false
+}
+
+ * expected output: 
+{
+  "resultMsg": "3 meals are served and it takes 15 seconds"
+}
+ 
+ 

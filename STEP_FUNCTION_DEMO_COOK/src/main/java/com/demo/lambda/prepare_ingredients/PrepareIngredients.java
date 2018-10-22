@@ -18,12 +18,3 @@ public class PrepareIngredients implements RequestHandler<PrepareIngredientsInpu
 	}
     
 }
-/**
- * test input:
-{"orderNumber": 1}
-{"orderNumber": 3} 
-{"orderNumber": 5}
-{"orderNumber": 100}
- * expected output:
-{"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":3,"orders":[{"orderId":1},{"orderId":2},{"orderId":3}],"ordersSize":3}
- */

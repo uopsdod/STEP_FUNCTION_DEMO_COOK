@@ -1,0 +1,16 @@
+* test input:
+{
+  "orderNumber": 1,
+  "isHoliday": false
+}
+* expected output:
+{
+  "ingredients": "cilantro,lamb,wine,black pepper",
+  "orderNumber": 1,
+  "orders": [
+    {
+      "orderId": 9
+    }
+  ],
+  "ordersSize": 1
+}
