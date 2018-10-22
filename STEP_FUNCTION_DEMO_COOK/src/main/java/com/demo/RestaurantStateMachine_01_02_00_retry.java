@@ -56,7 +56,7 @@ public class RestaurantStateMachine_01_02_00_retry
                         .retrier(retrier()
                                 .retryOnAllErrors()
                                 .intervalSeconds(3)
-                                .maxAttempts(2)
+                                .maxAttempts(5)
                                 .backoffRate(2.0))
                         .transition(next("Serve")))
                 .state("Serve", taskState()

@@ -61,7 +61,7 @@ public class RestaurantStateMachine_01_02_01_retry_catch
                         .retrier(retrier()
                                 .retryOnAllErrors()
                                 .intervalSeconds(3)
-                                .maxAttempts(1)
+                                .maxAttempts(5)
                                 .backoffRate(2.0))
                         .transition(next("Serve"))
                         .catcher(Catcher.builder()
