@@ -18,22 +18,27 @@ public class Cook {
 	String activity_cook_agn;
 	AWSStepFunctions client;
 	
-	public Cook() {
-		int timeout = 10000;
-		
-		/** get an AWS Setp function client **/
-    	ClientConfiguration withRequestTimeout = new ClientConfiguration().withClientExecutionTimeout(timeout);
-    	this.client = AWSStepFunctionsClientBuilder.standard().withCredentials(DefaultAWSCredentialsProviderChain.getInstance()).withClientConfiguration(withRequestTimeout).build();
-		
-    	/** get activity arn **/
-    	this.activity_cook_agn = "arn:aws:states:us-east-1:602307824922:activity:Cook";		
-	}
+	public Cook() {}
 	
+	public Cook(AWSStepFunctions client, String activity_cook_agn) {
+		this.client = client;
+		this.activity_cook_agn = activity_cook_agn;
+	}
+
 	public static void main( String[] args )
     {
+		
+		/** get an AWS Setp function client **/
+		int timeout = 10000;
+    	ClientConfiguration withRequestTimeout = new ClientConfiguration().withClientExecutionTimeout(timeout);
+    	AWSStepFunctions client = AWSStepFunctionsClientBuilder.standard().withCredentials(DefaultAWSCredentialsProviderChain.getInstance()).withClientConfiguration(withRequestTimeout).build();
+		
+    	/** get activity arn **/
+    	String activity_cook_agn = "arn:aws:states:us-east-1:602307824922:activity:Cook";			
 
 		/** poll for task to work on **/
-    	Cook cook = new Cook();
+    	Cook cook = new Cook(client, activity_cook_agn);
+    	
     	while(true) {
     		try {
     			cook.execute();
