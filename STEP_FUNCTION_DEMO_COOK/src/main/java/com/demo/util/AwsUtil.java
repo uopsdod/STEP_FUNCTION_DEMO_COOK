@@ -63,7 +63,7 @@ public class AwsUtil {
         	System.out.println(e.getErrorMessage());
         	String stateMachineArn = AwsUtil.getStateMachineArnByStateMachineAlreadyExistsException(e);
 			if (AwsUtil.isStrExist(stateMachineArn)) {
-				UpdateStateMachineResult updateStateMachine = client.updateStateMachine(new UpdateStateMachineRequest().withStateMachineArn(stateMachineArn).withDefinition(stateMachine.toJson()));
+				UpdateStateMachineResult updateStateMachine = client.updateStateMachine(new UpdateStateMachineRequest().withStateMachineArn(stateMachineArn).withDefinition(stateMachine.toJson()).withRoleArn(role_agn));
 				System.out.println(stateMachineArn + " is updated at " + updateStateMachine.getUpdateDate());
 			}else {
 				e.printStackTrace();

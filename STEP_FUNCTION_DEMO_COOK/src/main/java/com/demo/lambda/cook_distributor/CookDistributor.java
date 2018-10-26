@@ -16,6 +16,12 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.google.gson.Gson;
 
+/**
+ * Because this class contains third-party library, if you build jar file on your own, you need to include those third-party libraries
+ * One way to do is use "mvn install shade:shade". This command will include all jar files. 
+ * @author stsai
+ *
+ */
 public class CookDistributor implements RequestHandler<CookDistributorInput, CookDistributorOutput> {
 
     public CookDistributor() {}
