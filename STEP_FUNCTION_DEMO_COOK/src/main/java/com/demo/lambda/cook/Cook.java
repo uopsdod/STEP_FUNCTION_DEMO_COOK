@@ -33,11 +33,3 @@ public class Cook implements RequestHandler<CookInput, CookOutput> {
       return result;
 	}
 }
-/**
- * test input:
-{"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":5,"orders":[{"orderId":101},{"orderId":102},{"orderId":103},{"orderId":104},{"orderId":105}],"ordersSize":5}
-{"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":3,"orders":[{"orderId":1},{"orderId":2},{"orderId":3}],"ordersSize":3}
-{"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":1,"orders":[{"orderId":101}],"ordersSize":1}
- * expected output:
-{"workingSeconds":15,"orderNumber":3}
-*/

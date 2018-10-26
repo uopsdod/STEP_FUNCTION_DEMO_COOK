@@ -17,9 +17,3 @@ public class Serve implements RequestHandler<ServeInput, ServeOutput> {
       return result;
 	}
 }
-/**
- * test input:
- * {"workingSeconds":1000,"orderNumber":100}
- * expected output:
- * {"resultMsg":"100 meals are served and it takes 1000"}
- */

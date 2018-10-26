@@ -92,11 +92,3 @@ public class CookDistributor implements RequestHandler<CookDistributorInput, Coo
       return result;
 	}
 }
-/**
- * test input:
-{"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":100}
-{"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":3,"orders":[{"orderId":1},{"orderId":2},{"orderId":3}],"ordersSize":3}
-{"ingredients":"cilantro,lamb,wine,black pepper","orderNumber":5,"orders":[{"orderId":101},{"orderId":102},{"orderId":103},{"orderId":104},{"orderId":105}],"ordersSize":5}
- * expected output:
-{"workingSeconds":6,"orderNumber":3}
-*/
